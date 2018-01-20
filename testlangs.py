@@ -1,6 +1,6 @@
 import pandas as pd
-from preparetable import get_table
-from lang_table import lang_table, lang_dict, code_to_language
+from compute.preparetable import get_table
+from compute.lang_table import lang_table, lang_dict, code_to_language
 from functools import reduce
 
 def show_what_remains(col, verbose=True):
