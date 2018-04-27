@@ -45,8 +45,15 @@
 	The average person is looking to learn #lang_expected_demand and offering #lang_expected_supply languages.
   </p>
   Let's look at the distribution of languages
-  <div id="container" style="width: 100%;"> <canvas id="searching"></canvas>  </div>
-  <div id="container" style="width: 100%;"> <canvas id="offering"></canvas>  </div>
+    
+  <div id="search_blocks_div" style="width: 100%;">
+    <canvas id="searching"></canvas>  <br>
+    <table id="search_table"></table>
+  </div>
+  <div id="offer_blocks_div"  style="width: 100%;">
+    <canvas id="offering"></canvas> <br>
+    <table id="offer_table"></table>
+  </div>
   <br>  <hr>  <br>
   <br>  <hr>  <br> 
   <div class="row"> <!-- overall most popular -->
@@ -284,6 +291,15 @@ function setDivWidth(){
     var po = document.getElementById("posttext");
     po.innerHTML = po.innerHTML.replace("#p_val",  p_val);
   }
+		    
+  var insert_low_count_langs = function(){
+    var t = document.getElementById("search_table");
+    t.innerHTML = search_low_count_table;
+
+    var t = document.getElementById("offer_table");
+    t.innerHTML = offer_low_count_table;
+  }    
+		    
 
   var onload_rank =   function() {
     var t = document.getElementById("table_amortized_demand"); t.innerHTML = table_remaining_dem;
@@ -308,7 +324,7 @@ function setDivWidth(){
     
   window.onload = function() {
     insert_rough_data();
-
+    insert_low_count_langs();
     onload_rank();
     
     var t = document.getElementById("lang_table");
