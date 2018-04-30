@@ -33,13 +33,21 @@ var doyChart = new Chart(ctx, {
 		     //stack: 'Stack 0'
 		     },
                    { type: 'line',
-		     label: '# of Entries by day of year smoothed',
+		     label: 'smoothed by 1 week',
 	             data: doy_data_s7, //deb_data,
                      //stack: 'Stack 0',
 		     pointRadius: 4,
                      backgroundColor: 'rgba(255, 159,  64, 0.2)',
-                     borderColor: 'rgba(255, 206,  86, 1)',
+                     borderColor:     'rgba(255, 206,  86, 1)',
                      },
+                   { type: 'line',
+		     label: '#smoothed by 2 weeks',
+	             data: doy_data_s14, //deb_data,
+                     //stack: 'Stack 0',
+		     pointRadius: 4,
+                     backgroundColor: 'rgba( 54, 162, 235, 0.2)',
+                     borderColor:     'rgba( 54, 162, 235, 1)',
+                     }
                     ]
     },
     options: {
