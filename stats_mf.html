@@ -7,9 +7,9 @@
   <head>
     <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
-  <title>Language Tandem Analysis</title>
+  <title>Language Tandem Analysis - men vs women</title>
 <!--script src="default_data.js"></script-->
-<script src="data.js"></script>
+<script src="data_mf.js"></script>
 <style>
   .row  {margin: 30px; display: inline-block;}
   .cell {margin:  0px; display: inline-block;}
@@ -23,11 +23,13 @@
 
  <body>
    <div id="container" style="width: 75%;margin: auto;">
-   <p id="pretext">
-   We analyse #no_valid_entries entries, from #from to #to.<br>
-   There are on average #hits_per_day new entries a day. That means there are #time_between_hits between entries on average.
-   </p>
-   <h2>Frequency of postings by day of the week</h2>
+     <p id="pretext">
+       Users placing ads are asked to input a salutation: either "Mrs. /Ms.", "Mr. ", or it can be left out. <br>
+       #entries_men users chose "Mr. " henceforth referenced as men. <br>
+       #entries_women users chose "Mrs. /Ms." henceforth referenced as women <br>
+       #entries_other users didn't chose either. (at the time of writing/coding there were too few (16) to draw any meaningful conclusions, so I didn't investigate them any further)
+     </p>
+     <h2>Frequency of postings by day of the week</h2>
    <canvas id="entries_by_day_of_week" ></canvas>
    <p id="posttext">
     Is the deviation from the uniform distribution significant? Chi square test has a p-value of: #p_val</p>
@@ -136,14 +138,7 @@
     <p id="remain_text">There's exactly as much demand as supply for #str_remaining_same.</p>
     </div>
   </div>
-      <br>
-	<hr>
-	  below are charts that aren't quite presentable yet<br>
-	  For statistics about the relation between male and female users see 
-<a href="stats_mf.html">here</a>
-
-	    <br>
-	      <hr>  <br>
+      <br>  <hr>  <br>
         <link type="text/css" rel="stylesheet" href="stylesheet_force.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
 	<div align="center">
@@ -213,8 +208,8 @@
         	  
       <br>  <hr>  <br>
 	    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
 
@@ -290,13 +285,11 @@ function setDivWidth(){
     
   var insert_rough_data = function() {
     var p = document.getElementById("pretext");
-    p.innerHTML = p.innerHTML.replace("#no_valid_entries",  no_valid_entries)
-                             .replace("#from",from)
-                             .replace("#to",to) 
-                             .replace("#hits_per_day",      hits_per_day)
-                             .replace("#time_between_hits", time_between_hits)  ;
+    p.innerHTML = p.innerHTML.replace("#entries_men",   entries_men)
+                             .replace("#entries_women", entries_women)
+                             .replace("#entries_other", entries_other)  ;
     var po = document.getElementById("posttext");
-    po.innerHTML = po.innerHTML.replace("#p_val",  p_val);
+//    po.innerHTML = po.innerHTML.replace("#p_val",  p_val);
   }
 		    
   var insert_low_count_langs = function(){
@@ -373,7 +366,7 @@ function setDivWidth(){
 
   //var week_day_all =  [12, 19, 3, 5, 2, 3,3]
 </script>
-<script src="bar_charts.js"></script>
+<script src="bar_charts_mf.js"></script>
 
 <script>
 for (rb of bs){  
@@ -408,12 +401,6 @@ for (b of bs){
 }
   
 </script>
-
-<script src="graph/graph.js" ></script>
-
-  <!--script defer>
-        // JavaScript here...
-  </script-->
 
   
  </body>
