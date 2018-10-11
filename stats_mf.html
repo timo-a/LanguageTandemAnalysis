@@ -18,6 +18,7 @@
   .title {width:inherit;  clear:both}
   .down { margin-top: 4mm }
   h2 {text-align:center}
+  .alignright { text-align: right; }
 </style>
  </head>
 
@@ -32,11 +33,10 @@
      <h2>Frequency of postings by day of the week</h2>
    <canvas id="entries_by_day_of_week" ></canvas>
    <p id="posttext">
-    Is the deviation from the uniform distribution significant? Chi square test has a p-value of: #p_val</p>
+    Do the frequencies of men and women stem from the same distribution? Chi square test has a p-value of: #p_val</p>
   </div>
   <div id="container" style="width: 100%;">
     <h2>Frequency of postings by day of the year</h2>
-    <canvas id="entries_by_doy" ></canvas>
   </div>
   <br>  <hr>  <br>
   Let's look at the number of languages people offer
@@ -59,153 +59,52 @@
   <br>  <hr>  <br>
   <br>  <hr>  <br> 
   <div class="row"> <!-- overall most popular -->
-    <div id ="t1" class="title">Overall popularity,<br> number of people searching for/ offering a language</div>
+    <div id ="t1" class="title">Overall men,<br> number of people searching for/ offering a language</div>
     <div id="down1" class="down">
       <div class="cell">
         demand<br>
-        <button id="t_overall_d_button" class="b"  >show all</button><br>
         <table  id='t_overall_d' class="t"></table> 
       </div>
       <div class="cell">
         supply<br>
-        <button id="t_overall_s_button" class="b"  >show all</button><br>
         <table  id='t_overall_s' class="t"></table> 
       </div>
     </div>
   </div>
 
-  <div class="row"> <!-- 1st choice most popular -->
-    <div id ="t2" class="title">First Choice<br>Assuming that people list languages descendingly by their motivation to teach/learn them, number of people listing the language first</div>
+  <div class="row"> <!-- women -->
+    <div id ="t2" class="title">Overall women<br>number of people searching for/ offering a language</div>
     <div id="down1" class="down">
       <div class="cell">
         demand<br>
-        <button id="t_first_d_button" class="b"  >show all</button><br>
         <table  id='t_first_d' class="t"></table> 
       </div>
       <div class="cell">
         supply<br>
-        <button id="t_first_s_button" class="b"  >show all</button><br>
         <table  id='t_first_s' class="t"></table> 
       </div>
     </div>
   </div>
 
-  <div class="row"> <!-- additional choice most popular -->
-    <div id ="t3" class="title">Next Choice<br>Assuming that people list languages descendingly by their motivation to teach/learn them, number of people listing the language not first</div>
-    <div id="down1" class="down">
-      <div class="cell">
-        demand<br>
-        <button id="t_additional_d_button" class="b"  >show all</button><br>
-        <table  id='t_additional_d' class="t" ></table> 
-      </div>
-      <div class="cell">
-        supply<br>
-        <button id="t_additional_s_button" style="float:left"  >show all</button><br>
-        <table  id='t_additional_s' class="t" ></table> 
-     </div>
-   </div>
-  </div>
 
-    <div class="row"> <!-- additional choice most popular -->
-      <div id ="t4" class="title">Last Choice<br>Assuming that people list languages descendingly by their motivation to teach/learn them, number of people listing the language last</div>
-    <div id="down1" class="down">
-    <div class="cell">
-      demand<br>
-      <button id="t_last_d_button" class="b"  >show all</button><br>
-      <table  id='t_last_d' class="t" ></table> 
-    </div>
-    <div class="cell">
-      supply<br>
-      <button id="t_last_s_button" style="float:left"  >show all</button><br>
-      <table  id='t_last_s' class="t" ></table> 
-   </div>
-   </div>
-  </div>
-
-  <br>  <hr>  <br>
-  <div class="row">
-    <div class="cell">
-      amortized demand<br>
-      <button id="tad_button" class="b"  >show all</button><br>
-      <table  id='table_amortized_demand' class="t"  ></table> 
-    </div>
-    <div class="cell">
-      amortized supply<br>
-      <button id="tas_button" class="b"  >show all</button><br>
-      <table  id='table_amortized_supply' class="t"   ></table> 
-    </div>
-    <div id="b" style="float:bottom; clear:both; margin: 10px;  ">
-    <p id="remain_text">There's exactly as much demand as supply for #str_remaining_same.</p>
-    </div>
-  </div>
-      <br>  <hr>  <br>
+<br>  <hr>  <br>
+	<p id="entropy">
+	Let's say we want to guess whether a random entry was made by a man or a woman.<br>
+	We are allowed to ask "Does the entry offer language X". Then it is best to ask about #offer_lang.<br>
+	It will decrease entropy from #offer_from to #offer_to.<br>
+        If we are instead allowed to ask for one language <em>searched</em> for, it is best to ask about #demand_lang.<br>
+	It will decrease entropy from #demand_from to #demand_to.<br>
+	</p>
+<br>  <hr>  <br>
+        <p id="language_choices">
+	Do men and women differ in their choice of languages to learn/offer?<br>
+	We look at languages that have more than 5 occurrences in at least one gender.<br>
+	For languages <em>offered</em>, a chi-square test for homogeneity yields a p value of #p_offer.
+	For languages <em>searched</em> for, a chi-square test for homogeneity yields a p value of #p_search.
+	</p>
+<br>  <hr>  <br>
         <link type="text/css" rel="stylesheet" href="stylesheet_force.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-	<div align="center">
-	  <svg id="force_within_search"></svg><br><br>
-	    Among people looking for more than one language, what are the pairs? Hover over a link to see the number of people looking for both languages.
-        </div>
-      <br>  <hr>  <br>
-	<div align="center">
-	  <svg id="force_within_offer"></svg><br><br>
-	    Among people offering more than one language, what are the pairs? Hover over a link to see the number of people looking for both languages.
-	</div>
-      <br>  <hr>  <br>
-      <div align="center" id="force_search_offer_undirected"></div>
-      <br>  <hr>  <br>
-      <div align="center" id="force_search_offer_directed"></div>
-      <br>  <hr>  <br>
-
-          <div class="row"> <!-- crosstab 1-->
-            <div id ="ct1" class="title">People who are offering X are also offering Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="ct_offer_offer_button" class="b"  >show all</button><br>
-                <table  id="ct_offer_offer_table" class="t"></table> 
-              </div>
-            </div>
-          </div>
-        
-          <div class="row"> <!-- crosstab 2 -->
-            <div id ="ct2" class="title">People who are searching for X are also searching for Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="ct_search_search_button" class="b"  >show all</button><br>
-                <table  id="ct_search_search_table" class="t"></table> 
-              </div>
-            </div>
-          </div>
-        
-
-    <br>  <hr>  <br>
-	  In the following we show relations between people who are searching or offering the same language.
-	  We only look at people who offer/search for several languages.
-	  Omitted from the results are connections that appear only once and percentages < 2%.
-	  Rows are sorted by absolute amount of highest percentage. 
-          <div class="row"> <!-- crosstab 1-->
-            <div id ="al1" class="title">People who are offering X are also offering Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="al_offer_offer_button" class="b"  >show all</button><br>
-		<div class="t"><!-- table has own class so wrap with div  -->
-                  <table  id="al_offer_offer_table" class="t"></table>
-		</div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="row"> <!-- crosstab 2 -->
-            <div id ="al2" class="title">People who are searching for X are also searching for Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="al_search_search_button" class="b"  >show all</button><br>
-		<div class="t">
-                <table  id="al_search_search_table" class="t"></table>
-		</div>
-              </div>
-            </div>
-          </div>
-        	  
       <br>  <hr>  <br>
 	    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
@@ -214,63 +113,21 @@
 
 
 <script >
-  var b_id = ['tad_button',            'tas_button',           ]
-  var t_id = ['table_amortized_demand','table_amortized_supply']
-//  var l_id = ['table_amortized_demand','table_amortized_supply']
+//schema table_overall_d_m
+  
+  var t_id = []
+  var l_id = []
   for (n of ['overall', 'first', 'additional','last']){
-      b_id.push('t_'+n+'_d_button')
-      b_id.push('t_'+n+'_s_button')
       t_id.push('t_'+n+'_d')
       t_id.push('t_'+n+'_s')
   }
 
-  var bs       = b_id.map( x => document.getElementById(x));
   var s_tables = t_id.map( x => document.getElementById(x));
-
-
-
-    var also_lists_b_id = ['ct_offer_offer_button','ct_search_search_button',
-                           'al_offer_offer_button','al_search_search_button'];
-
-    var also_lists_b = also_lists_b_id.map( x => document.getElementById(x));
-
-    var also_lists_t_id = ['ct_offer_offer_table','ct_search_search_table',
-                           'al_offer_offer_table','al_search_search_table'];
-
-    var also_lists_t = also_lists_t_id.map( x => document.getElementById(x));
-
-    
-    for (i = 0; i < also_lists_b.length; i++){
-	button = also_lists_b[i];
-        table  = also_lists_t[i];
-        button.expand_text = "show"
-	button.shrink_text = "hide"	    
-	button.innerText = button.shrink_text
-	button.table = table
-        button.shrink = function(){
-            this.table.style.display ='none';
-	    this.innerText = this.expand_text
-        }
-        button.expand = function(){
-            this.table.style.display = "";
-	    this.innerText = this.shrink_text
-        }
-    }
-    for (b of also_lists_b ){
-      b.addEventListener('click', function() {
-        switch(this.innerText){
-            case this.expand_text: this.expand(); break;
-            case this.shrink_text: this.shrink(); break;
-        }
-      });
-    }
 		    
 
 function setDivWidth(){
     list_ids = ["t1","t2","t3","t4"]
-    crosstab_ids = ["ct1","ct2"]
-    also_list_ids = ["al1","al2"]
-    boxes = list_ids.concat(crosstab_ids, also_list_ids)
+    boxes = list_ids
     for (id of boxes){
         e= document.getElementById(id)
         e.setAttribute("style","width:0px;");
@@ -289,45 +146,64 @@ function setDivWidth(){
                              .replace("#entries_women", entries_women)
                              .replace("#entries_other", entries_other)  ;
     var po = document.getElementById("posttext");
-//    po.innerHTML = po.innerHTML.replace("#p_val",  p_val);
-  }
-		    
-  var insert_low_count_langs = function(){
-    var t = document.getElementById("search_table");
-    t.innerHTML = search_low_count_table;
+    if(weekday_chi < 0.05){ var text = " → we assume they don't." }
+		     else { var text = " → we assume they do."}
+    po.innerHTML = po.innerHTML.replace("#p_val",  weekday_chi+text);
 
-    var t = document.getElementById("offer_table");
-    t.innerHTML = offer_low_count_table;
-  }    
+    var p = document.getElementById("entropy");
+
+    p.innerHTML = p.innerHTML.replace("#offer_lang", _lang_plural(infogain_offer.languages))
+                             .replace("#offer_from", infogain_offer.from)
+                             .replace("#offer_to",   infogain_offer.to);
+
+    p.innerHTML = p.innerHTML.replace("#demand_lang", _lang_plural(infogain_search.languages))
+                             .replace("#demand_from", infogain_search.from)
+                             .replace("#demand_to",   infogain_search.to);
+
+    var p = document.getElementById("language_choices");
+    p.innerHTML = p.innerHTML.replace("#p_offer",  _lang_pvalue(pval_mf_offer) )
+                             .replace("#p_search", _lang_pvalue(pval_mf_search));
+    
+  }
+  var _lang_plural = function(arr) {
+    l = arr.length
+    if (l == 0) {
+       console.log("infogain_??.languages are empty?!")
+    } else if (l == 1) {
+       return arr[0]
+    } else {
+       return "either " + arr.slice(0, l-1).join(', ') + " or " + arr[l-1]
+    }
+  
+  }
+  var _lang_pvalue = function(p) {
+    if (p < 0.05) {
+       return p + " leading us to believe that men/women have different distributions"
+    } else {
+       return p + " leading us to believe that language choices are distributed equally"
+    }
+  }
+  
+		    
 		    
 
   var onload_rank =   function() {
-    var t = document.getElementById("table_amortized_demand"); t.innerHTML = table_remaining_dem;
-    var t = document.getElementById("table_amortized_supply"); t.innerHTML = table_remaining_sup;
+    //var t = document.getElementById("table_amortized_demand"); t.innerHTML = table_remaining_dem;
+    //var t = document.getElementById("table_amortized_supply"); t.innerHTML = table_remaining_sup;
   
-    var t = document.getElementById("t_overall_d"); t.innerHTML = table_overall_dem;
-    var t = document.getElementById("t_overall_s"); t.innerHTML = table_overall_sup;
+    var t = document.getElementById("t_overall_d"); t.innerHTML = table_overall_d_m;
+    var t = document.getElementById("t_overall_s"); t.innerHTML = table_overall_s_m;
   
-    var t = document.getElementById("t_first_d");   t.innerHTML = table_first_dem;
-    var t = document.getElementById("t_first_s");   t.innerHTML = table_first_sup;
-    
-    var t = document.getElementById("t_additional_d"); t.innerHTML = table_additional_dem;
-    var t = document.getElementById("t_additional_s"); t.innerHTML = table_additional_sup;
-  
-    var t = document.getElementById("t_last_d");    t.innerHTML = table_last_dem;
-    var t = document.getElementById("t_last_s");    t.innerHTML = table_last_sup;
-    
-    var p = document.getElementById("remain_text");
-    p.innerHTML =  p.innerHTML.replace("#str_remaining_same", str_remaining_same)
-      
+    var t = document.getElementById("t_first_d");   t.innerHTML = table_overall_d_f;
+    var t = document.getElementById("t_first_s");   t.innerHTML = table_overall_s_f;
+            
   }
     
   window.onload = function() {
     insert_rough_data();
-    insert_low_count_langs();
     onload_rank();
     
-    var t = document.getElementById("lang_table");
+/*    var t = document.getElementById("lang_table");
     t.innerHTML = lang_tablecontent
     var p = document.getElementById("lang_text");
     p.innerHTML = p.innerHTML.replace("#want_more", lang_want_more)
@@ -335,30 +211,7 @@ function setDivWidth(){
                              .replace("#offer_more",lang_offer_more)
                              .replace("#lang_expected_demand", lang_expected_demand)
                              .replace("#lang_expected_supply", lang_expected_supply);
-  
-    var t = document.getElementById("ct_offer_offer_table");   t.innerHTML = pairs_crosstab_intra_offer;
-    var t = document.getElementById("ct_search_search_table"); t.innerHTML = pairs_crosstab_intra_search;
-
-    var id = "al_offer_offer_table";
-    var text = pairs_list_offer_offer
-    var t = document.getElementById(id);
-    var regex = /table id=\"(\w+)\"/;
-    var rand_name = regex.exec(text)[1]
-    text=text.split(rand_name).join(id)
-    t.outerHTML = text;
-
-    var id = "al_search_search_table";
-    var text = pairs_list_offer_offer
-    var t = document.getElementById(id);
-    var regex = /table id=\"(\w+)\"/;
-    var rand_name = regex.exec(text)[1]
-    text=text.split(rand_name).join(id)
-    t.outerHTML = text;
-
-    
-    for (i=0; i<bs.length; i++){  bs[i].table = s_tables[i] };
-  
-      bs.forEach(shrink)
+*/      
       setDivWidth();
   }
   
@@ -367,40 +220,6 @@ function setDivWidth(){
   //var week_day_all =  [12, 19, 3, 5, 2, 3,3]
 </script>
 <script src="bar_charts_mf.js"></script>
-
-<script>
-for (rb of bs){  
-  rb.shrink_text = "show only top 5"
-  rb.expand_text = "show all"
-}
-
-function shrink(button){
-
-  var t = button.table;
-  for (i = 5; i < t.rows.length; i++) {
-    t.rows[i].style.display='none'
-  }
-  button.innerText = button.expand_text 
-} 
-
-function expand(button){
-    var t =  button.table
-    for (i = 5; i < t.rows.length; i++) {//expand_action
-        t.rows[i].style.display= t.rows[0].style.display  //'initial'
-    }
-    button.innerText = button.shrink_text
-} 
-
-for (b of bs){
-  b.addEventListener('click', function() {
-    switch(this.innerText){
-        case this.expand_text: expand(this); console.log("e"); break;
-	case this.shrink_text: shrink(this); console.log("s"); break;
-    }
-  });
-}
-  
-</script>
 
   
  </body>
