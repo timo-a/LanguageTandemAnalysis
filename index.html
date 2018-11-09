@@ -17,26 +17,29 @@
   .b {float:left}
   .title {width:inherit;  clear:both}
   .down { margin-top: 4mm }
-  h2 {text-align:center}
+  h2 {text-align:center; margin-top:50px}
     .alignright { text-align: right; }
 </style>
  </head>
 
  <body>
-   <div id="container" style="width: 75%;margin: auto;">
+   <div id="container" style="width: 80%;margin: auto;">
    <p id="pretext">
+   We analyse posts on an online board for finding tandem partners for language learning at my university. The goal of such boards is to connect language learners, so e.g. a person speaking A and learning B can find a person speaking B and learning A.<br>
+   Only one party needs to make an entry, anyone with an email address can respond to an entry on the board. This means that the conclusions we draw refer to the learners to take the initiative and post their contact information publicly. We don't know anything about the people responding to   the entries on the board.<br>
    We analyse #no_valid_entries entries, from #from to #to.<br>
-   There are on average #hits_per_day new entries a day. That means there are #time_between_hits between entries on average.
+   There are on average #hits_per_day new entries a day. That means there are #time_between_hits between entries on average.<br>
+   In our collected data we have encountered #unique_total unique languages people are searching for and offering.<br>
+   We found #unique_search languages people are searching for and #unique_offer languages people are offering to teach.
    </p>
    <h2>Frequency of postings by day of the week</h2>
    <canvas id="entries_by_day_of_week" ></canvas>
    <p id="posttext">
     Is the deviation from the uniform distribution significant? Chi square test has a p-value of: #p_val</p>
-  </div>
-  <div id="container" style="width: 100%;">
+
     <h2>Frequency of postings by day of the year</h2>
     <canvas id="entries_by_doy" ></canvas>
-  </div>
+  
   <br>  <hr>  <br>
   Let's look at the number of languages people offer
   <table  id='lang_table'></table>
@@ -55,7 +58,7 @@
     <canvas id="offering"></canvas> <br>
     <table id="offer_table"></table>
   </div>
-  <br>  <hr>  <br>
+
   <br>  <hr>  <br> 
   <div class="row"> <!-- overall most popular -->
     <div id ="t1" class="title">Overall popularity,<br> number of people searching for/ offering a language</div>
@@ -74,7 +77,7 @@
   </div>
 
   <div class="row"> <!-- 1st choice most popular -->
-    <div id ="t2" class="title">First Choice<br>Assuming that people list languages descendingly by their motivation to teach/learn them, number of people listing the language first</div>
+    <div id ="t2" class="title">First Choice<br>Among people listing several languages, #people listing the language first</div>
     <div id="down1" class="down">
       <div class="cell">
         demand<br>
@@ -90,7 +93,7 @@
   </div>
 
   <div class="row"> <!-- additional choice most popular -->
-    <div id ="t3" class="title">Next Choice<br>Assuming that people list languages descendingly by their motivation to teach/learn them, number of people listing the language not first</div>
+    <div id ="t3" class="title">Next Choice<br>Among people listing several languages, #people listing the language not first</div>
     <div id="down1" class="down">
       <div class="cell">
         demand<br>
@@ -106,7 +109,7 @@
   </div>
 
     <div class="row"> <!-- additional choice most popular -->
-      <div id ="t4" class="title">Last Choice<br>Assuming that people list languages descendingly by their motivation to teach/learn them, number of people listing the language last</div>
+      <div id ="t4" class="title">Last Choice<br>Among people listing several languages, #people listing the language last</div>
     <div id="down1" class="down">
     <div class="cell">
       demand<br>
@@ -139,80 +142,11 @@
   </div>
       <br>
 	<hr>
-	  below are charts that aren't quite presentable yet<br>
-	  For statistics about the relation between male and female users see 
-<a href="stats_mf.html">here</a>
+	  For statistics about the relation between male and female users see <a href="stats_mf.html">here</a><br>
+	  For charts that aren't quite presentable yet see <a href="experimental.html">here</a>
 
-	    <br>
-	      <hr>  <br>
-        <link type="text/css" rel="stylesheet" href="stylesheet_force.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-	<div align="center">
-	  <svg id="force_within_search"></svg><br><br>
-	    Among people looking for more than one language, what are the pairs? Hover over a link to see the number of people looking for both languages.
-        </div>
-      <br>  <hr>  <br>
-	<div align="center">
-	  <svg id="force_within_offer"></svg><br><br>
-	    Among people offering more than one language, what are the pairs? Hover over a link to see the number of people looking for both languages.
-	</div>
-      <br>  <hr>  <br>
-      <div align="center" id="force_search_offer_undirected"></div>
-      <br>  <hr>  <br>
-      <div align="center" id="force_search_offer_directed"></div>
-      <br>  <hr>  <br>
 
-          <div class="row"> <!-- crosstab 1-->
-            <div id ="ct1" class="title">People who are offering X are also offering Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="ct_offer_offer_button" class="b"  >show all</button><br>
-                <table  id="ct_offer_offer_table" class="t"></table> 
-              </div>
-            </div>
-          </div>
-        
-          <div class="row"> <!-- crosstab 2 -->
-            <div id ="ct2" class="title">People who are searching for X are also searching for Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="ct_search_search_button" class="b"  >show all</button><br>
-                <table  id="ct_search_search_table" class="t"></table> 
-              </div>
-            </div>
-          </div>
-        
-
-    <br>  <hr>  <br>
-	  In the following we show relations between people who are searching or offering the same language.
-	  We only look at people who offer/search for several languages.
-	  Omitted from the results are connections that appear only once and percentages < 2%.
-	  Rows are sorted by absolute amount of highest percentage. 
-          <div class="row"> <!-- crosstab 1-->
-            <div id ="al1" class="title">People who are offering X are also offering Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="al_offer_offer_button" class="b"  >show all</button><br>
-		<div class="t"><!-- table has own class so wrap with div  -->
-                  <table  id="al_offer_offer_table" class="t"></table>
-		</div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="row"> <!-- crosstab 2 -->
-            <div id ="al2" class="title">People who are searching for X are also searching for Y</div>
-            <div id="down1" class="down">
-              <div class="cell">
-                <button id="al_search_search_button" class="b"  >show all</button><br>
-		<div class="t">
-                <table  id="al_search_search_table" class="t"></table>
-		</div>
-              </div>
-            </div>
-          </div>
-        	  
-      <br>  <hr>  <br>
+</div> <!-- ends the margin div  -->
 	    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
@@ -235,48 +169,14 @@
 
 
 
-    var also_lists_b_id = ['ct_offer_offer_button','ct_search_search_button',
-                           'al_offer_offer_button','al_search_search_button'];
-
-    var also_lists_b = also_lists_b_id.map( x => document.getElementById(x));
-
-    var also_lists_t_id = ['ct_offer_offer_table','ct_search_search_table',
-                           'al_offer_offer_table','al_search_search_table'];
-
-    var also_lists_t = also_lists_t_id.map( x => document.getElementById(x));
-
+  
+  
     
-    for (i = 0; i < also_lists_b.length; i++){
-	button = also_lists_b[i];
-        table  = also_lists_t[i];
-        button.expand_text = "show"
-	button.shrink_text = "hide"	    
-	button.innerText = button.shrink_text
-	button.table = table
-        button.shrink = function(){
-            this.table.style.display ='none';
-	    this.innerText = this.expand_text
-        }
-        button.expand = function(){
-            this.table.style.display = "";
-	    this.innerText = this.shrink_text
-        }
-    }
-    for (b of also_lists_b ){
-      b.addEventListener('click', function() {
-        switch(this.innerText){
-            case this.expand_text: this.expand(); break;
-            case this.shrink_text: this.shrink(); break;
-        }
-      });
-    }
-		    
+  		    
 
 function setDivWidth(){
     list_ids = ["t1","t2","t3","t4"]
-    crosstab_ids = ["ct1","ct2"]
-    also_list_ids = ["al1","al2"]
-    boxes = list_ids.concat(crosstab_ids, also_list_ids)
+    boxes = list_ids
     for (id of boxes){
         e= document.getElementById(id)
         e.setAttribute("style","width:0px;");
@@ -291,7 +191,10 @@ function setDivWidth(){
     
   var insert_rough_data = function() {
     var p = document.getElementById("pretext");
-    p.innerHTML = p.innerHTML.replace("#no_valid_entries",  no_valid_entries)
+    p.innerHTML = p.innerHTML.replace("#unique_total",  unique_langs_both  )
+                             .replace("#unique_search", unique_langs_search)
+                             .replace("#unique_offer",  unique_langs_offer )
+                             .replace("#no_valid_entries",  no_valid_entries)
                              .replace("#from",from)
                              .replace("#to",to) 
                              .replace("#hits_per_day",      hits_per_day)
@@ -344,25 +247,6 @@ function setDivWidth(){
                              .replace("#lang_expected_demand", lang_expected_demand)
                              .replace("#lang_expected_supply", lang_expected_supply);
   
-    var t = document.getElementById("ct_offer_offer_table");   t.innerHTML = pairs_crosstab_intra_offer;
-    var t = document.getElementById("ct_search_search_table"); t.innerHTML = pairs_crosstab_intra_search;
-
-    var id = "al_offer_offer_table";
-    var text = pairs_list_offer_offer
-    var t = document.getElementById(id);
-    var regex = /table id=\"(\w+)\"/;
-    var rand_name = regex.exec(text)[1]
-    text=text.split(rand_name).join(id)
-    t.outerHTML = text;
-
-    var id = "al_search_search_table";
-    var text = pairs_list_offer_offer
-    var t = document.getElementById(id);
-    var regex = /table id=\"(\w+)\"/;
-    var rand_name = regex.exec(text)[1]
-    text=text.split(rand_name).join(id)
-    t.outerHTML = text;
-
     
     for (i=0; i<bs.length; i++){  bs[i].table = s_tables[i] };
   
@@ -409,8 +293,6 @@ for (b of bs){
 }
   
 </script>
-
-<script src="graph/graph.js" ></script>
 
   <!--script defer>
         // JavaScript here...

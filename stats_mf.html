@@ -17,13 +17,18 @@
   .b {float:left}
   .title {width:inherit;  clear:both}
   .down { margin-top: 4mm }
-  h2 {text-align:center}
+  h1 {text-align:center}
+  h2 {text-align:center; margin-top:50px}
   .alignright { text-align: right; }
+  .entropytable {border-spacing: 10px;}
+  .entropytable caption {  caption-side: bottom;}
+  .entropytable th      {  text-align: left;}
 </style>
  </head>
+  <body>
+   <h1>Are there differences between men and women?</h1>
 
- <body>
-   <div id="container" style="width: 75%;margin: auto;">
+   <div id="container" style="width: 80%;margin: auto;"> <!-- todo can body do this?-->
      <p id="pretext">
        Users placing ads are asked to input a salutation: either "Mrs. /Ms.", "Mr. ", or it can be left out. <br>
        #entries_men users chose "Mr. " henceforth referenced as men. <br>
@@ -33,79 +38,119 @@
      <h2>Frequency of postings by day of the week</h2>
    <canvas id="entries_by_day_of_week" ></canvas>
    <p id="posttext">
-    Do the frequencies of men and women stem from the same distribution? Chi square test has a p-value of: #p_val</p>
-  </div>
-  <div id="container" style="width: 100%;">
-    <h2>Frequency of postings by day of the year</h2>
-  </div>
-  <br>  <hr>  <br>
-  Let's look at the number of languages people offer
-  <table  id='lang_table'></table>
-  <p id="lang_text" align='left'>#want_more people are looking for more languages than they are offering, <br>
-      #offer_more people are offering to teach more languages then they are looking to learn and <br>
-	#same people are looking for as many languages as they are offering. <br>
-	The average person is looking to learn #lang_expected_demand and offering #lang_expected_supply languages.
-  </p>
-  Let's look at the distribution of languages
-    
-  <div id="search_blocks_div" style="width: 100%;">
-    <canvas id="searching"></canvas>  <br>
-    <table id="search_table"></table>
-  </div>
-  <div id="offer_blocks_div"  style="width: 100%;">
-    <canvas id="offering"></canvas> <br>
-    <table id="offer_table"></table>
-  </div>
-  <br>  <hr>  <br>
-  <br>  <hr>  <br> 
+     Do the frequencies of men and women stem from the same distribution?<br>
+     Chi square test has a p-value of: #p_val</p>
+
+     <h2>Number of Languages</h2>
+
+Let's look at the number of languages people offer. For clarity in the following '#o' means 'number of languages offered' and '#s' 'searched for' respectively. <br>
   <div class="row"> <!-- overall most popular -->
-    <div id ="t1" class="title">Overall men,<br> number of people searching for/ offering a language</div>
     <div id="down1" class="down">
+      <div>men</div>
       <div class="cell">
-        demand<br>
-        <table  id='t_overall_d' class="t"></table> 
-      </div>
-      <div class="cell">
-        supply<br>
-        <table  id='t_overall_s' class="t"></table> 
+	<table id='sd_table_m'></table>
       </div>
     </div>
   </div>
 
-  <div class="row"> <!-- women -->
-    <div id ="t2" class="title">Overall women<br>number of people searching for/ offering a language</div>
+  <div class="row"> <!-- overall most popular -->
+    <div id="down1" class="down">
+      <div>women</div>
+      <div class="cell">
+        <table  id='sd_table_f'></table> 
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="row"> <!-- overall most popular -->
     <div id="down1" class="down">
       <div class="cell">
-        demand<br>
-        <table  id='t_first_d' class="t"></table> 
-      </div>
+	<table id="sd_table" class=entropytable>
+	 <!-- caption>Entropy regarding gender of a poster</caption-->
+         <tr> <th></th>         <th>men</th>  <th>women</th> </tr>
+         <tr> <td>#s > #o</td>  <td style="text-align:right">#m_search%</td>     <td style="text-align:right">#f_search%</td>     </tr>
+         <tr> <td>#s = #o</td>  <td style="text-align:right">#m_same% </td>      <td style="text-align:right">#f_same% </td>      </tr>
+         <tr> <td>#s < #o</td>  <td style="text-align:right">#m_offer%</td>      <td style="text-align:right">#f_offer%</td>      </tr>
+         <tr> <td>mean #s</td>  <td style="text-align:right">#m_mean_search</td> <td style="text-align:right">#f_mean_search</td> </tr>
+         <tr> <td>mean #o</td>  <td style="text-align:right">#m_mean_offer </td> <td style="text-align:right">#f_mean_offer </td> </tr>
+        </table> 
+
+	</div>
+    </div>
+  </div>
+  
+
+
+  <h2>Distribution of Languages</h2>
+  <div class="row"> <!-- demand -->
+    <div id ="t1" class="title">people searching for a language</div>
+    <div id="down1" class="down">
       <div class="cell">
-        supply<br>
-        <table  id='t_first_s' class="t"></table> 
+        men<br>
+        <table  id='t_d_m' class="t"></table> 
+      </div>
+      <div class="cell" style="margin-left:20px">
+        women<br>
+        <table  id='t_d_f' class="t"></table> 
       </div>
     </div>
   </div>
 
 
-<br>  <hr>  <br>
-	<p id="entropy">
-	Let's say we want to guess whether a random entry was made by a man or a woman.<br>
-	We are allowed to ask "Does the entry offer language X". Then it is best to ask about #offer_lang.<br>
-	It will decrease entropy from #offer_from to #offer_to.<br>
-        If we are instead allowed to ask for one language <em>searched</em> for, it is best to ask about #demand_lang.<br>
-	It will decrease entropy from #demand_from to #demand_to.<br>
-	</p>
-<br>  <hr>  <br>
+
+  <div class="row"> <!-- supply -->
+    <div id ="t2" class="title">people offering a language</div>
+    <div id="down1" class="down">
+      <div class="cell">
+        men<br>
+        <table  id='t_s_m' class="t"></table> 
+      </div>
+      <div class="cell" style="margin-left:20px">
+        women<br>
+        <table  id='t_s_f' class="t"></table> 
+      </div>
+    </div>
+  </div>
+
+      <br>  <hr>  <br>
         <p id="language_choices">
 	Do men and women differ in their choice of languages to learn/offer?<br>
 	We look at languages that have more than 5 occurrences in at least one gender.<br>
-	For languages <em>offered</em>, a chi-square test for homogeneity yields a p value of #p_offer.
+	For languages <em>offered</em>, a chi-square test for homogeneity yields a p value of #p_offer.<br>
 	For languages <em>searched</em> for, a chi-square test for homogeneity yields a p value of #p_search.
 	</p>
-<br>  <hr>  <br>
-        <link type="text/css" rel="stylesheet" href="stylesheet_force.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-      <br>  <hr>  <br>
+
+
+	<h2>Entropy</h2>
+	<p id="entropy">
+	Let's say we want to guess whether a random entry was made by a man or a woman.<br>
+	We are allowed to ask "Does the entry search for language X". Then it is best to ask about #demand_lang.<br>
+	It will decrease entropy from #demand_from to #demand_to.<br>
+        If we are instead allowed to ask for one language <em>offered</em>, it is best to ask about #offer_lang.<br>
+	It will decrease entropy from #offer_from to #offer_to.<br>
+        What is the total information we can gain from language information?
+        For this we train an optimal bayes classifier and compute the entropy on the partition from the classifier.<br>
+        Knowing the languages an entry is searching for reduced the entropy to #infogain_search.<br>
+        Knowing the languages an entry is offering reduced the entropy to #infogain_offer.<br>
+        Knowing both the languages an entry is searching for and offering reduced the entropy to #infogain_both.<br>
+	And summarized in a table:
+	<table id="entropytable" class=entropytable  >
+	 <caption>Entropy regarding gender of a poster</caption>
+         <tr> <th>Entropy</th>         <th>when we know</th> </tr>
+         <tr> <td>#prior</td>          <td>nothing</td>      </tr>
+         <tr> <td>#e_1lang_search</td> <td>whether or not entry searches for #l_1lang_search</td> </tr>
+         <tr> <td>#e_1lang_offer</td>  <td>whether or not entry offers #l_1lang_offer</td>        </tr>
+         <tr> <td>#search</td>         <td>what languages an entry searches for</td>              </tr>
+         <tr> <td>#offer</td>          <td>what languages an entry offers</td>                    </tr>
+         <tr> <td>#both</td>           <td>what languages an entry searches for and offers </td>  </tr>
+        </table> 
+	
+	</p>
+
+</div> <!-- closes margin -->	
+<link type="text/css" rel="stylesheet" href="stylesheet_force.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
 	    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
@@ -125,8 +170,8 @@
   var s_tables = t_id.map( x => document.getElementById(x));
 		    
 
-function setDivWidth(){
-    list_ids = ["t1","t2","t3","t4"]
+function setDivWidth(){    //regulates width of text, barely neccessary here but just in case 
+    list_ids = ["t1","t2"]
     boxes = list_ids
     for (id of boxes){
         e= document.getElementById(id)
@@ -152,15 +197,31 @@ function setDivWidth(){
 
     var p = document.getElementById("entropy");
 
-    p.innerHTML = p.innerHTML.replace("#offer_lang", _lang_plural(infogain_offer.languages))
-                             .replace("#offer_from", infogain_offer.from)
-                             .replace("#offer_to",   infogain_offer.to);
+    p.innerHTML = p.innerHTML.replace("#offer_lang", _lang_plural(infogain_offer_1lang.languages))
+                             .replace("#offer_from", infogain_offer_1lang.from)
+                             .replace("#offer_to",   infogain_offer_1lang.to);
 
-    p.innerHTML = p.innerHTML.replace("#demand_lang", _lang_plural(infogain_search.languages))
-                             .replace("#demand_from", infogain_search.from)
-                             .replace("#demand_to",   infogain_search.to);
+    p.innerHTML = p.innerHTML.replace("#demand_lang", _lang_plural(infogain_search_1lang.languages))
+                             .replace("#demand_from", infogain_search_1lang.from)
+                             .replace("#demand_to",   infogain_search_1lang.to);
 
-    var p = document.getElementById("language_choices");
+    p.innerHTML = p.innerHTML.replace("#infogain_search", infogain_search)
+                             .replace("#infogain_offer",  infogain_offer )
+                             .replace("#infogain_both",   infogain_both  );
+
+    var p = document.getElementById("entropytable");
+    p.innerHTML = p.innerHTML.replace("#prior", infogain_offer_1lang.from)
+                             .replace("#e_1lang_offer",  infogain_offer_1lang.to )
+                             .replace("#l_1lang_offer",  _lang_plural(infogain_offer_1lang.languages)  )
+                             .replace("#e_1lang_search",  infogain_search_1lang.to )
+                             .replace("#l_1lang_search",  _lang_plural(infogain_search_1lang.languages)  )
+			     .replace("#search", infogain_search)
+			     .replace("#offer",  infogain_offer )
+			     .replace("#both",   infogain_both  );
+
+
+
+var p = document.getElementById("language_choices");
     p.innerHTML = p.innerHTML.replace("#p_offer",  _lang_pvalue(pval_mf_offer) )
                              .replace("#p_search", _lang_pvalue(pval_mf_search));
     
@@ -184,18 +245,28 @@ function setDivWidth(){
     }
   }
   
-		    
+    var p = document.getElementById("sd_table");    
+    p.innerHTML = p.innerHTML.replace("#m_search",      sup_vs_dem_m['want_more'] )
+                             .replace("#m_same",        sup_vs_dem_m['same']      )
+                             .replace("#m_offer",       sup_vs_dem_m['offer_more'])
+                             .replace("#m_mean_search", sup_vs_dem_m_mean['expected_demand'])
+                             .replace("#m_mean_offer",  sup_vs_dem_m_mean['expected_supply'])
+		             .replace("#f_search",      sup_vs_dem_f['want_more'] )
+                             .replace("#f_same",        sup_vs_dem_f['same']      )
+                             .replace("#f_offer",       sup_vs_dem_f['offer_more'])
+                             .replace("#f_mean_search", sup_vs_dem_f_mean['expected_demand'])
+                             .replace("#f_mean_offer",  sup_vs_dem_f_mean['expected_supply']);
 		    
 
   var onload_rank =   function() {
     //var t = document.getElementById("table_amortized_demand"); t.innerHTML = table_remaining_dem;
     //var t = document.getElementById("table_amortized_supply"); t.innerHTML = table_remaining_sup;
   
-    var t = document.getElementById("t_overall_d"); t.innerHTML = table_overall_d_m;
-    var t = document.getElementById("t_overall_s"); t.innerHTML = table_overall_s_m;
+    var t = document.getElementById("t_d_m"); t.innerHTML = table_overall_d_m;
+    var t = document.getElementById("t_s_m"); t.innerHTML = table_overall_s_m;
   
-    var t = document.getElementById("t_first_d");   t.innerHTML = table_overall_d_f;
-    var t = document.getElementById("t_first_s");   t.innerHTML = table_overall_s_f;
+    var t = document.getElementById("t_d_f");   t.innerHTML = table_overall_d_f;
+    var t = document.getElementById("t_s_f");   t.innerHTML = table_overall_s_f;
             
   }
     
@@ -203,9 +274,11 @@ function setDivWidth(){
     insert_rough_data();
     onload_rank();
     
-/*    var t = document.getElementById("lang_table");
-    t.innerHTML = lang_tablecontent
-    var p = document.getElementById("lang_text");
+    var t = document.getElementById("sd_table_m");
+    t.innerHTML = sup_vs_dem_m_tablecontent
+    var t = document.getElementById("sd_table_f");
+    t.innerHTML = sup_vs_dem_f_tablecontent
+/*    var p = document.getElementById("lang_text");
     p.innerHTML = p.innerHTML.replace("#want_more", lang_want_more)
                              .replace("#same",      lang_same)
                              .replace("#offer_more",lang_offer_more)

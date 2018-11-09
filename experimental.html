@@ -1,0 +1,190 @@
+ <!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+  <title>Language Tandem Analysis</title>
+<!--script src="default_data.js"></script-->
+<script src="data.js"></script>
+<style>
+  .row  {margin: 30px; display: inline-block;}
+  .cell {margin:  0px; display: inline-block;}
+  .t {clear:both}
+  .b {float:left}
+  .title {width:inherit;  clear:both}
+  .down { margin-top: 4mm }
+  h2 {text-align:center}
+    .alignright { text-align: right; }
+</style>
+ </head>
+
+ <body>
+   <div id="container" style="width: 75%;margin: auto;">
+   Stuff that isn't quite presentable yet<br>
+
+     <link type="text/css" rel="stylesheet" href="stylesheet_force.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+	<div align="center">
+	  <svg id="force_within_search"></svg><br><br>
+	    Among people looking for more than one language, what are the pairs? Hover over a link to see the number of people looking for both languages.
+        </div>
+      <br>  <hr>  <br>
+	<div align="center">
+	  <svg id="force_within_offer"></svg><br><br>
+	    Among people offering more than one language, what are the pairs? Hover over a link to see the number of people looking for both languages.
+	</div>
+      <br>  <hr>  <br>
+
+          <div class="row"> <!-- crosstab 1-->
+            <div id ="ct1" class="title">People who are offering X are also offering Y</div>
+            <div id="down1" class="down">
+              <div class="cell">
+                <button id="ct_offer_offer_button" class="b"  >show all</button><br>
+                <table  id="ct_offer_offer_table" class="t"></table> 
+              </div>
+            </div>
+          </div>
+        
+          <div class="row"> <!-- crosstab 2 -->
+            <div id ="ct2" class="title">People who are searching for X are also searching for Y</div>
+            <div id="down1" class="down">
+              <div class="cell">
+                <button id="ct_search_search_button" class="b"  >show all</button><br>
+                <table  id="ct_search_search_table" class="t"></table> 
+              </div>
+            </div>
+          </div>
+        
+
+    <br>  <hr>  <br>
+	  In the following we show relations between people who are searching or offering the same language.
+	  We only look at people who offer/search for several languages.
+	  Omitted from the results are connections that appear only once and percentages < 2%.
+	  Rows are sorted by absolute amount of highest percentage. 
+          <div class="row"> <!-- crosstab 1-->
+            <div id ="al1" class="title">People who are offering X are also offering Y</div>
+            <div id="down1" class="down">
+              <div class="cell">
+                <button id="al_offer_offer_button" class="b"  >show all</button><br>
+		<div class="t"><!-- table has own class so wrap with div  -->
+                  <table  id="al_offer_offer_table" class="t"></table>
+		</div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row"> <!-- crosstab 2 -->
+            <div id ="al2" class="title">People who are searching for X are also searching for Y</div>
+            <div id="down1" class="down">
+              <div class="cell">
+                <button id="al_search_search_button" class="b"  >show all</button><br>
+		<div class="t">
+                <table  id="al_search_search_table" class="t"></table>
+		</div>
+              </div>
+            </div>
+          </div>
+        	  
+      <br>  <hr>  <br>
+	    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+<script >
+    //load tables
+    var t = document.getElementById("ct_offer_offer_table");   t.innerHTML = pairs_crosstab_intra_offer;
+    var t = document.getElementById("ct_search_search_table"); t.innerHTML = pairs_crosstab_intra_search;
+
+    var id = "al_offer_offer_table";
+    var text = pairs_list_offer_offer
+    var t = document.getElementById(id);
+    var regex = /table id=\"(\w+)\"/;
+    var rand_name = regex.exec(text)[1]
+    text=text.split(rand_name).join(id)
+    t.outerHTML = text;
+
+    var id = "al_search_search_table";
+    var text = pairs_list_offer_offer
+    var t = document.getElementById(id);
+    var regex = /table id=\"(\w+)\"/;
+    var rand_name = regex.exec(text)[1]
+    text=text.split(rand_name).join(id)
+    t.outerHTML = text;
+    
+    //a
+    var button_ids = ['ct_offer_offer_button','ct_search_search_button',
+                      'al_offer_offer_button','al_search_search_button'];
+
+    var buttons = button_ids.map( x => document.getElementById(x));
+
+    var table_ids = ['ct_offer_offer_table','ct_search_search_table',
+                     'al_offer_offer_table','al_search_search_table'];
+
+    var tables = table_ids.map( x => document.getElementById(x));
+
+    
+    for (i = 0; i < buttons.length; i++){
+	button = buttons[i];
+        table  = tables[i];
+        button.expand_text = "show"
+	button.shrink_text = "hide"	    
+	button.innerText = button.shrink_text
+	button.table = table
+        button.shrink = function(){
+            this.table.style.display ='none';
+	    this.innerText = this.expand_text
+        }
+        button.expand = function(){
+            this.table.style.display = "";
+	    this.innerText = this.shrink_text
+        }
+    }
+    for (b of buttons ){
+      b.addEventListener('click', function() {
+        switch(this.innerText){
+            case this.expand_text: this.expand(); break;
+            case this.shrink_text: this.shrink(); break;
+        }
+      });
+    }
+
+function setDivWidth(){
+    ids = ["ct1","ct2",  "al1","al2"]
+    boxes = ids
+    for (id of boxes){
+        e= document.getElementById(id)
+        e.setAttribute("style","width:0px;");
+        w=e.parentElement.children[1].offsetWidth
+        sum=w+"px"
+        e.setAttribute("style","width:"+sum+"; clear:both");
+        //e.style.width=sum;
+        //https://stackoverflow.com/questions/10118172/setting-div-width-and-height-in-javascript
+    }
+    return 3;
+}
+    
+		        
+window.onload = function() {
+      
+    
+      setDivWidth();
+  }
+  
+</script>
+
+
+<script src="graph/graph.js" ></script>
+
+  <!--script defer>
+        // JavaScript here...
+  </script-->
+
+  
+ </body>
+</html>
