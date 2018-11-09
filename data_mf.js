@@ -1,6 +1,6 @@
-entries_men   = 537
-entries_women = 338
-entries_other = 21
+entries_men   = "537"
+entries_women = "338"
+entries_other = "21"
 var weekday_distribution_m = [18.25, 14.90, 17.32, 16.01, 12.66, 9.12, 11.73]
 var weekday_distribution_f = [15.09, 17.16, 17.46, 13.31, 15.09, 10.65, 11.24]
 var weekday_chi = "0.630599173"
@@ -8,7 +8,16 @@ var table_overall_d_m = '<tr><td class="alignleft">German</td><td class="alignri
 var table_overall_s_m = '<tr><td class="alignleft">English</td><td class="alignright">187</td></tr>\n<tr><td class="alignleft">German</td><td class="alignright">176</td></tr>\n<tr><td class="alignleft">Chinese</td><td class="alignright">120</td></tr>\n<tr><td class="alignleft">Spanish</td><td class="alignright">94</td></tr>\n<tr><td class="alignleft">French</td><td class="alignright">42</td></tr>\n<tr><td class="alignleft">Arabic</td><td class="alignright">31</td></tr>\n<tr><td class="alignleft">Portuguese</td><td class="alignright">18</td></tr>\n<tr><td class="alignleft">Russian</td><td class="alignright">14</td></tr>\n<tr><td class="alignleft">Italian</td><td class="alignright">14</td></tr>\n<tr><td class="alignleft">Turkish</td><td class="alignright">11</td></tr>'
 var table_overall_d_f = '<tr><td class="alignleft">German</td><td class="alignright">195</td></tr>\n<tr><td class="alignleft">English</td><td class="alignright">60</td></tr>\n<tr><td class="alignleft">French</td><td class="alignright">34</td></tr>\n<tr><td class="alignleft">Spanish</td><td class="alignright">32</td></tr>\n<tr><td class="alignleft">Japanese</td><td class="alignright">13</td></tr>\n<tr><td class="alignleft">Korean</td><td class="alignright">7</td></tr>\n<tr><td class="alignleft">Swedish</td><td class="alignright">5</td></tr>\n<tr><td class="alignleft">Vietnamese</td><td class="alignright">4</td></tr>\n<tr><td class="alignleft">Portuguese</td><td class="alignright">3</td></tr>\n<tr><td class="alignleft">Chinese</td><td class="alignright">3</td></tr>'
 var table_overall_s_f = '<tr><td class="alignleft">German</td><td class="alignright">118</td></tr>\n<tr><td class="alignleft">English</td><td class="alignright">96</td></tr>\n<tr><td class="alignleft">Chinese</td><td class="alignright">82</td></tr>\n<tr><td class="alignleft">Spanish</td><td class="alignright">52</td></tr>\n<tr><td class="alignleft">Italian</td><td class="alignright">21</td></tr>\n<tr><td class="alignleft">French</td><td class="alignright">19</td></tr>\n<tr><td class="alignleft">Korean</td><td class="alignright">12</td></tr>\n<tr><td class="alignleft">Japanese</td><td class="alignright">11</td></tr>\n<tr><td class="alignleft">Russian</td><td class="alignright">9</td></tr>\n<tr><td class="alignleft">Turkish</td><td class="alignright">8</td></tr>'
-var infogain_search = { languages : ["English"], from : "0.957", to : "0.952", gain : "0.004" }
-var infogain_offer = { languages : ["Arabic"], from : "0.962", to : "0.953", gain : "0.009" }
+var infogain_search_1lang = { languages : ["Vietnamese"], from : "0.962", to : "0.956", gain : "0.006" }
+var infogain_offer_1lang = { languages : ["Arabic"], from : "0.962", to : "0.953", gain : "0.009" }
+var infogain_search = "0.939"
+var infogain_offer  = "0.902"
+var infogain_both   = "0.812"
 var pval_mf_search = "0.03807909"
 var pval_mf_offer  = "0.00001165"
+var sup_vs_dem_m_tablecontent = '<table border="1" class="dataframe">\n  <thead>\n    <tr style="text-align: right;">\n      <th>#s</th>\n      <th>1</th>\n      <th>2</th>\n      <th>3</th>\n      <th>4</th>\n      <th>All</th>\n    </tr>\n    <tr>\n      <th>#o</th>\n      <th></th>\n      <th></th>\n      <th></th>\n      <th></th>\n      <th></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>1</th>\n      <td>304</td>\n      <td>27</td>\n      <td>4</td>\n      <td>1</td>\n      <td>336</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>135</td>\n      <td>23</td>\n      <td>8</td>\n      <td>1</td>\n      <td>167</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>24</td>\n      <td>4</td>\n      <td>0</td>\n      <td>0</td>\n      <td>28</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>5</td>\n      <td>1</td>\n      <td>0</td>\n      <td>0</td>\n      <td>6</td>\n    </tr>\n    <tr>\n      <th>All</th>\n      <td>468</td>\n      <td>55</td>\n      <td>12</td>\n      <td>2</td>\n      <td>537</td>\n    </tr>\n  </tbody>\n</table>'
+var sup_vs_dem_m = { want_more : "7.64", same : "60.89", offer_more : "31.47" }
+var sup_vs_dem_m_mean = { expected_demand : "1.16", expected_supply : "1.45"}
+var sup_vs_dem_f_tablecontent = '<table border="1" class="dataframe">\n  <thead>\n    <tr style="text-align: right;">\n      <th>#s</th>\n      <th>1</th>\n      <th>2</th>\n      <th>3</th>\n      <th>4</th>\n      <th>All</th>\n    </tr>\n    <tr>\n      <th>#o</th>\n      <th></th>\n      <th></th>\n      <th></th>\n      <th></th>\n      <th></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>1</th>\n      <td>203</td>\n      <td>21</td>\n      <td>2</td>\n      <td>0</td>\n      <td>226</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>83</td>\n      <td>14</td>\n      <td>1</td>\n      <td>0</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>10</td>\n      <td>4</td>\n      <td>0</td>\n      <td>0</td>\n      <td>14</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>0</td>\n      <td>0</td>\n      <td>0</td>\n      <td>0</td>\n      <td>0</td>\n    </tr>\n    <tr>\n      <th>All</th>\n      <td>296</td>\n      <td>39</td>\n      <td>3</td>\n      <td>0</td>\n      <td>338</td>\n    </tr>\n  </tbody>\n</table>'
+var sup_vs_dem_f = { want_more : "7.10", same : "64.20", offer_more : "28.70" }
+var sup_vs_dem_f_mean = { expected_demand : "1.13", expected_supply : "1.37"}
