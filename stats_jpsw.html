@@ -1,0 +1,129 @@
+ <!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+  <title>Language Tandem Analysis - Japanese & Swedish</title>
+<!--
+script src="default_data.js"></script
+-->
+<!-- script src="data.js"></script -->
+<script src="data_jpsw.js"></script>
+<style>
+  .row  {margin: 30px; display: inline-block;}
+  .cell {margin:  0px; display: inline-block;}
+  .t {clear:both}
+  .b {float:left}
+  .title {width:inherit;  clear:both}
+  .down { margin-top: 4mm }
+  h2 {text-align:center; margin-top:50px}
+    .alignright { text-align: right; }
+</style>
+ </head>
+
+  <body>
+   <a href="index.html">General stats</a>   <a href="stats_mf.html">male vs female</a>  <!-- a href="stats_de.html">native vs international</a -->  <a href="stats_jpsw.html">Japanese & Swedish</a>      
+   <hr>   
+   <div id="container" style="width: 80%;margin: auto;">
+   <p id="pretext">
+     I am interested in learning Japanese and Swedish, so I present a special analysis of them.
+     In the recorded data - #no_valid_entries entries, from #from to #to  - a total of:
+   <div align="center">
+   <table id="numberstable" class=entropytable  >
+	 <!-- caption>Number of Japanese/Swedish offers/queries posted</caption -->
+         <tr> <td style="text-align:right"> #jp_offer </td>  <td>entries offer  Japanese</td>  </tr>
+         <tr> <td style="text-align:right"> #jp_search</td>  <td>entries search Japanese</td>  </tr>
+         <tr> <td style="text-align:right"> #sw_offer </td>  <td>entries offer  Swedish</td>   </tr>
+         <tr> <td style="text-align:right"> #sw_search</td>  <td>entries search Swedish</td>   </tr>
+   </table> 
+   </div>  
+
+   </p>
+
+
+
+
+
+    <h2> When do they post? </h2>
+    <canvas id="entries_by_doy" ></canvas>
+  
+  <br>  <hr>  <br>
+
+  Let's look at the distribution of languages, which languages do Japanese people want to learn?
+    
+  <div id="search_jp_blocks_div" style="width: 100%;">
+    <canvas id="searching_jp"></canvas>  <br>
+    <table id="search_table_jp"></table>
+  </div>
+
+  Let's look at the distribution of languages again, which languages do Swedish people want to learn?
+
+  <div id="search_sw_blocks_div"  style="width: 100%;">
+    <canvas id="searching_sw"></canvas> <br>
+    <table id="search_table_sw"></table>
+  </div>
+
+
+
+      <br>
+	<hr>
+	  For general statistics see <a href="index.html">here</a>.<br>
+	  For statistics about the relation between male and female users see <a href="stats_mf.html">here</a>.<br>
+	  <!-- For statistics about the relation between native german speakers and german learners see <a href="stats_de.html">here</a><br> -->
+	  For charts that aren't quite presentable yet see <a href="experimental.html">here</a>..
+
+
+</div> <!-- ends the margin div  -->
+	    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+<script >
+  var insert_pretext = function() {
+  
+    var p = document.getElementById("pretext");
+    p.innerHTML = p.innerHTML.replace("#no_valid_entries",  no_valid_entries)
+                             .replace("#from",from)
+                             .replace("#to",to) 
+  }
+  
+  var insert_total_numbers = function() {
+  
+    var p = document.getElementById("numberstable");    
+    p.innerHTML = p.innerHTML.replace("#jp_offer",   jp_offer_number  )
+                             .replace("#jp_search",  jp_search_number )
+                             .replace("#sw_offer",   sw_offer_number  )
+                             .replace("#sw_search",  sw_search_number );                     
+  }
+  
+		    
+  var insert_low_count_langs = function(){
+    var t = document.getElementById("search_table_jp");
+    t.innerHTML = search_low_count_table_jp;
+
+    var t = document.getElementById("search_table_sw");
+    t.innerHTML = search_low_count_table_sw;
+  }    
+		    
+    
+  window.onload = function() {
+    insert_pretext();
+    insert_total_numbers();
+    insert_low_count_langs();
+    
+  }
+  
+
+</script>
+
+<script src="bar_charts_jpsw.js"></script>
+
+  
+ </body>
+</html>
