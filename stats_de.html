@@ -1,0 +1,176 @@
+ <!DOCTYPE html
+ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+  <title>Language Tandem Analysis - natives vs internationals</title>
+<!--script src="default_data.js"></script-->
+<script src="data_de.js"></script>
+<style>
+  .row  {margin: 30px; display: inline-block;}
+  .cell {margin:  0px; display: inline-block;}
+  .t {clear:both}
+  .b {float:left}
+  .title {width:inherit;  clear:both}
+  .down { margin-top: 4mm }
+  h1 {text-align:center}
+  h2 {text-align:center; margin-top:50px}
+  .alignright { text-align: right; }
+</style>
+ </head>
+    <body>
+         <a href="index.html">General stats</a>   <a href="stats_mf.html">male vs female</a>  <a href="stats_de.html">native vs international</a>  <a href="stats_jpsw.html">Japanese & Swedish</a>      
+   <hr>   
+
+   
+
+   <div id="container" style="width: 80%;margin: auto;"> <!-- todo can body do this?-->
+     <p id="pretext">
+       There are two big groups among the users, those who offer to teach German in exchange for learning another language and those who want to learn German and offer to teach their own language.
+       In the recorded data we found:
+
+       <div align="center">
+       <table id="numberstable" class=entropytable  >
+	 <!-- caption>Number of Japanese/Swedish offers/queries posted</caption -->
+         <tr> <td style="text-align:right"> #de_search_number </td>  <td>entries looking for German speakers</td>  </tr>
+         <tr> <td style="text-align:right"> #de_offer_number  </td>  <td>entries offering to teach German</td>  </tr>
+         <tr> <td style="text-align:right"> #de_both_number   </td>  <td>entries both offering to teach and looking to learn German</td>   </tr>
+         <tr> <td style="text-align:right"> #de_none_number   </td>  <td>entries neither searching for nor offering German</td>   </tr>
+       </table> 
+       </div>  
+
+       Learning and teaching the same language may sound strange at first but some people offer to teach e.g. B1 level German and look for C2 level German.
+       They will of cource not find a Person who already speaks C2 level German and wants to learn B1 level German.
+       But students who want to learn several languages can increase their chances of finding a partner this way.
+       There are people who have no interest in either teaching or learning German as well.
+       They are probably international students in a course that doesn't require German.
+       But they might as well be ambitious natives who, want to strenghen a second language that they're comfortable in rather than offering their native language.
+
+       We can not with certainty determine who is and is not a native.
+       Students offering to teach German may be from another German speaking country, have had German classes in school or have picked up German really fast since arriving here.
+       We consider all of them 'native' as speaking German at a proficiency that allows them to teach it should give them the native experience in Germany.
+       People who are looking to teach German but at the same time look to learn German, were not counted as native as they are still learning.
+       On the other hand people who are looking to learn German are considered 'international' and after long deliberation people neither offering nor seeking German are considered 'international' as well.
+       In short:
+       <pre>
+       <code>
+       native := offers German & !seeks German
+       international := seeks German | !offers German
+       </code> 
+       </pre>
+       
+     </p>
+
+    <h2> When do they post? </h2>
+    <canvas id="entries_by_doy" ></canvas>
+
+
+  <h2>Distribution of Languages</h2>
+  <div class="row"> <!-- demand -->
+    <div id ="t1" class="title">people searching for a language</div>
+    <div id="down1" class="down">
+      <div class="cell">
+        natives<br>
+        <table  id='t_d_m' class="t"></table> 
+      </div>
+      <div class="cell" style="margin-left:20px">
+        internationals<br>
+        <table  id='t_d_f' class="t"></table> 
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row"> <!-- supply -->
+    <div id ="t2" class="title">people offering a language</div>
+    <div id="down1" class="down">
+      <div class="cell">
+        natives<br>
+        <table  id='t_s_m' class="t"></table> 
+      </div>
+      <div class="cell" style="margin-left:20px">
+        internationals<br>
+        <table  id='t_s_f' class="t"></table> 
+      </div>
+    </div>
+  </div>
+
+
+	<hr>
+	  For general statistics see <a href="index.html">here</a>.<br>
+	  For statistics about the relation between male and female users see <a href="stats_mf.html">here</a>.<br>
+	  <!-- For statistics about the relation between native german speakers and german learners see <a href="stats_de.html">here</a><br> -->
+	  For statistics about Japanese and Swedish see <a href="stats_jpsw.html">here</a>.<br>
+	  For charts that aren't quite presentable yet see <a href="experimental.html">here</a>..
+
+</div> <!-- closes margin -->	
+<link type="text/css" rel="stylesheet" href="stylesheet_force.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+	    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+<script >
+//schema table_overall_d_m
+  
+  var t_id = []
+  var l_id = []
+  for (n of ['overall', 'first', 'additional','last']){
+      t_id.push('t_'+n+'_d')
+      t_id.push('t_'+n+'_s')
+  }
+
+  var s_tables = t_id.map( x => document.getElementById(x));
+		    
+
+function setDivWidth(){    //regulates width of text, barely neccessary here but just in case 
+    list_ids = ["t1","t2"]
+    boxes = list_ids
+    for (id of boxes){
+        e= document.getElementById(id)
+        e.setAttribute("style","width:0px;");
+        w=e.parentElement.children[1].offsetWidth
+        sum=w+"px"
+        e.setAttribute("style","width:"+sum+"; clear:both");
+        //e.style.width=sum;
+        //https://stackoverflow.com/questions/10118172/setting-div-width-and-height-in-javascript
+    }
+    return 3;
+}
+    
+  var insert_rough_data = function() {
+    var p = document.getElementById("numberstable");
+    p.innerHTML = p.innerHTML.replace("#de_search_number",  de_search_number )
+                             .replace("#de_offer_number",   de_offer_number  )
+                             .replace("#de_both_number",    de_both_number   )  
+                             .replace("#de_none_number",    de_none_number   );
+  }
+
+  var onload_rank = function() {
+  
+    var t = document.getElementById("t_d_m"); t.innerHTML = table_overall_dem_natives;
+    var t = document.getElementById("t_s_m"); t.innerHTML = table_overall_sup_natives;
+  
+    var t = document.getElementById("t_d_f");   t.innerHTML = table_overall_dem_internationals;
+    var t = document.getElementById("t_s_f");   t.innerHTML = table_overall_sup_internationals;
+            
+  }
+    
+  window.onload = function() {
+    insert_rough_data();
+    onload_rank();
+    
+    setDivWidth();
+  }  
+</script>
+<script src="bar_charts_de.js"></script>
+
+ </body>
+</html>

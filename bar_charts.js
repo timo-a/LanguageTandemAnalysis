@@ -47,6 +47,14 @@ var doyChart = new Chart(ctx, {
 		     pointRadius: 4,
                      backgroundColor: 'rgba( 54, 162, 235, 0.2)',
                      borderColor:     'rgba( 54, 162, 235, 1)',
+                     },
+                   { type: 'line',
+		     label: '#smoothed by 4 weeks',
+	             data: doy_data_s28, //deb_data,
+                     //stack: 'Stack 0',
+		     pointRadius: 4,
+                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                     borderColor:     'rgba(75, 192, 192, 1)',
                      }
                     ]
     },
