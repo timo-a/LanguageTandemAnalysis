@@ -10,7 +10,7 @@ var table_overall_d_f = '<tr><td class="alignleft">German</td><td class="alignri
 var table_overall_s_f = '<tr><td class="alignleft">German</td><td class="alignright">172</td></tr>\n<tr><td class="alignleft">English</td><td class="alignright">127</td></tr>\n<tr><td class="alignleft">Chinese</td><td class="alignright">119</td></tr>\n<tr><td class="alignleft">Spanish</td><td class="alignright">69</td></tr>\n<tr><td class="alignleft">French</td><td class="alignright">26</td></tr>\n<tr><td class="alignleft">Korean</td><td class="alignright">25</td></tr>\n<tr><td class="alignleft">Italian</td><td class="alignright">24</td></tr>\n<tr><td class="alignleft">Russian</td><td class="alignright">15</td></tr>\n<tr><td class="alignleft">Japanese</td><td class="alignright">14</td></tr>\n<tr><td class="alignleft">Turkish</td><td class="alignright">12</td></tr>'
 var infogain_search_1lang = { languages : ["Vietnamese"], from : "0.962", to : "0.957", gain : "0.004" }
 var infogain_offer_1lang = { languages : ["Arabic"], from : "0.962", to : "0.952", gain : "0.009" }
-var infogain_search = "0.939"
+var infogain_search = "0.936"
 var infogain_offer  = "0.914"
 var infogain_both   = "0.821"
 var pval_mf_search = "0.01379464"
